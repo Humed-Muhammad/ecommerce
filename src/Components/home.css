@@ -1,0 +1,6 @@
+.home {
+  background: url("../images//bg3.jpg");
+  background-size: cover;
+  background-position: center;
+  object-fit: cover;
+}

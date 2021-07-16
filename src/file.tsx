@@ -1,0 +1,1 @@
+export let Value: string = "Humed"
