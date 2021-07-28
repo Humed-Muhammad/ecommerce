@@ -53,9 +53,10 @@ export default function MediaCard({ item }) {
 
   const handleAddingToCart = async (e) => {
     e.preventDefault();
-    let { status, message } = await addCart(await cartItems);
-    dispatch(increment(message));
-    localStorage.setItem("cartCount", message);
+    if (loggedInStatus) {
+      let { status, message } = await addCart(await cartItems);
+      dispatch(increment(message));
+    }
   };
 
   return (
@@ -85,52 +86,52 @@ export default function MediaCard({ item }) {
             >
               {item.short_desc}
             </Typography>
-            <Typography
-              className="text-center w-full text-gray-900 mt-5"
-              variant="body2"
-              color="textSecondary"
-              component="h4"
-            >
-              Quantity:
-              {item.quantity}
-            </Typography>
           </CardContent>
         </CardActionArea>
         <CardActions className="flex justify-around items-center ">
           <div className="text-md">${item.price}</div>
-          {loggedInStatus && added ? (
-            <button className="text-green-500 flex justify-center items-center">
-              Added <CheckCircleIcon className="text-green h-7" />{" "}
+          {item.quantity == 0 ? (
+            <button className="bg-gray-700 text-white py-1 px-2 rounded-sm">
+              Sold out
             </button>
           ) : (
-            <button
-              type="submit"
-              onClick={() => {
-                if (loggedInStatus) {
-                  dispatch(
-                    addCartItems({
-                      title: item.title,
-                      categoryId: item.category_id,
-                      subcategoryId: item.subcategory_id,
-                      image: item.image,
-                      color: item.color,
-                      website: item.website,
-                      price: item.price,
-                      id: item.id,
-                      shortDesc: item.short_desc,
-                    })
-                  );
+            <div className="">
+              {loggedInStatus && added ? (
+                <button className="text-green-500 flex justify-center items-center">
+                  Added <CheckCircleIcon className="text-green h-7" />{" "}
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  onClick={() => {
+                    if (loggedInStatus) {
+                      dispatch(
+                        addCartItems({
+                          title: item.title,
+                          categoryId: item.category_id,
+                          subcategoryId: item.subcategory_type,
+                          image: item.image,
+                          color: item.color,
+                          website: item.website,
+                          price: item.price,
+                          id: item.id,
+                          shortDesc: item.short_desc,
+                          quantity: 1,
+                        })
+                      );
 
-                  setAdded(true);
-                }
-                if (!loggedInStatus) {
-                  setOpen(true);
-                }
-              }}
-              className="bg-yellow-500 text-white py-2 px-3 rounded-sm"
-            >
-              Add To Cart
-            </button>
+                      setAdded(true);
+                    }
+                    if (!loggedInStatus) {
+                      setOpen(true);
+                    }
+                  }}
+                  className="bg-yellow-500 text-white py-2 px-3 rounded-sm"
+                >
+                  Add To Cart
+                </button>
+              )}
+            </div>
           )}
         </CardActions>
       </form>

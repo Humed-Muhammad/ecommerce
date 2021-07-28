@@ -4,8 +4,7 @@ import "@syncfusion/ej2-layouts/styles/material.css";
 import { motion } from "framer-motion";
 import TopBar from "../TopBar";
 import CategoryDailog from "./CategoryDailog.jsx";
-import Dropdown from "./Dropdown.jsx";
-import Subdropdown from "./Subdropdown.jsx";
+import Dropdown from "./Dropdown.tsx";
 
 let parent = {
   hidden: { opacity: 0 },

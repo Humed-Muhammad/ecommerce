@@ -28,7 +28,7 @@ const Products = ({ path }) => {
   console.log(categoryProduct);
 
   return (
-    <div className="bg-white mt-20  w-full flex flex-wrap justify-center item-center">
+    <div className="bg-white mt-20  w-full flex flex-wrap justify-center items-center">
       {categoryProduct.map((item) => (
         <Card item={item} />
       ))}

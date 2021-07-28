@@ -8,11 +8,9 @@ import store from "./redux/store";
 import Admin from "./Components/admin/AdminDashboard.jsx";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <Admin />
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById("root")
 );
 

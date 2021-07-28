@@ -4,7 +4,7 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState: {
     cartItems: [],
-    cartCount: localStorage.getItem("cartCount"),
+    cartCount: 0,
     allCartItems: [],
   },
   reducers: {
@@ -17,6 +17,13 @@ export const cartSlice = createSlice({
     increment: (state, action) => {
       state.cartCount = action.payload;
     },
+    decrement: (state, action) => {
+      if (action.payload != 0) {
+        state.cartCount += action.payload;
+      } else {
+        state.cartCount = 0;
+      }
+    },
     getAllCartItems: (state, action) => {
       state.allCartItems = [];
       action.payload.map((item) => {
@@ -26,7 +33,12 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addCartItems, removeCartItems, increment, getAllCartItems } =
-  cartSlice.actions;
+export const {
+  addCartItems,
+  removeCartItems,
+  increment,
+  decrement,
+  getAllCartItems,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

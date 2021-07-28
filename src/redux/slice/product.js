@@ -8,6 +8,7 @@ export const addProductSlice = createSlice({
     allMajorCategory: [],
     allSubCategory: [],
     categoryProduct: [],
+    orders: [],
   },
   reducers: {
     addProduct: (state, action) => {
@@ -35,6 +36,10 @@ export const addProductSlice = createSlice({
         state.categoryProduct.push(item);
       });
     },
+    addOrders: (state, action) => {
+      state.orders = [];
+      state.orders.unshift(action.payload);
+    },
   },
 });
 
@@ -44,6 +49,7 @@ export const {
   getAllSubCategory,
   getCategoryProduct,
   getNewProduct,
+  addOrders,
 } = addProductSlice.actions;
 
 export default addProductSlice.reducer;

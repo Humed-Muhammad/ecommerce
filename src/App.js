@@ -15,6 +15,8 @@ import {
   Redirect,
   Link,
 } from "react-router-dom";
+import UserProfile from "./Components/users/UserProfile.jsx";
+import Order from "./Components/users/Order";
 
 function App() {
   let [path, setPath] = useState("" || localStorage.getItem("path"));
@@ -30,20 +32,20 @@ function App() {
     <div className="bg-gray-white flex flex-col justify-center items-center ">
       <Router className="flex flex-col justify-center items-center ">
         <Navbar />
-        <Route path="/add">
-          <Add />
+        <Route path="/order">
+          {loggedInStatus ? null : <Redirect path="/" />}
+          <Order />
+        </Route>
+        <Route path="/profile">
+          {loggedInStatus ? null : <Redirect path="/" />}
+          <UserProfile />
         </Route>
         <Route path="/cart">
+          {loggedInStatus ? null : <Redirect path="/" />}
           <Cart />
-        </Route>
-        <Route path="/major">
-          <AddMajorCategory />
         </Route>
         <Route path={`/products/${path}`}>
           <Products path={path} />
-        </Route>
-        <Route path="/cat">
-          <AddCategories />
         </Route>
         <Route exact path="/">
           <Home setPath={setPath} />

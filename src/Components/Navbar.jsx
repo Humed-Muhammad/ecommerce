@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Dropdown from "./Dropdown.jsx";
 import jwtDecode from "jwt-decode";
 import { Link } from "react-router-dom";
 import { SearchIcon } from "@heroicons/react/outline";
-import pp from "../images/womens/womens-fashion.jpg";
 import { Avatar } from "@material-ui/core";
-// import Bage from "./Bage.jsx";
 import { passUser } from "../api";
 import Badge from "@material-ui/core/Badge";
 import { withStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getLoggedInUser } from "../redux/slice/users";
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
@@ -30,6 +29,8 @@ const Navbar = () => {
   });
 
   let { cartCount } = useSelector((state) => state.cartBucket);
+  let { loggedInUser } = useSelector((state) => state.users);
+  const dispatch = useDispatch();
 
   let loggedInStatus = localStorage.getItem("logged_in");
 
@@ -40,14 +41,15 @@ const Navbar = () => {
       if (loggedInStatus) {
         let { message } = await passUser(userEmail);
         let {
-          data: { id, email, name },
+          data: { id, email, name, image, cartNum },
         } = jwtDecode(message.token);
 
-        setTokenData({ id, email, name });
+        setTokenData({ id, email, name, image, cartNum });
+        dispatch(getLoggedInUser({ id, email, name, image, cartNum }));
       }
     };
     fetchData();
-  }, [cartCount]);
+  }, [cartCount, loggedInStatus]);
   console.log(tokenData);
 
   return (
@@ -74,11 +76,18 @@ const Navbar = () => {
         {loggedInStatus ? (
           <div className="flex justify-center items-center cursor-pointer">
             <p className="text-xl text-gray-700 py-2 px-2">{tokenData.name}</p>
-            <Avatar className="mr-2" alt={tokenData.name} src={pp} />
+            <Link to="/profile">
+              <Avatar
+                className="mr-2"
+                alt={tokenData.name}
+                src={loggedInUser[0] && loggedInUser[0].image}
+              />
+            </Link>
             <button
               onClick={() => {
                 localStorage.removeItem("logged_in");
                 localStorage.removeItem("userEmail");
+                localStorage.removeItem("userId");
                 window.location.reload();
               }}
               className="py-2 px-2 bg-red-500 text-white rounded-sm mr-2"

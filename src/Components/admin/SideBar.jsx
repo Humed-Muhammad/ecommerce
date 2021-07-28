@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import logo from "./xing.png";
-import pp from "./pp.jpg";
+import logo from "./image/logo.png";
+import pp from "./image/pp.jpg";
 import { Link } from "react-router-dom";
 import { CreditCardIcon } from "@heroicons/react/outline";
 
 const SideBar = () => {
   let [type, setType] = useState(0);
   return (
-    <div className="h-full w-60 flex flex-col justify-between items-center bg-white shadow-lg">
+    <div className="h-full w-96 md:w-60 flex flex-col justify-between items-center bg-white shadow-lg">
       <div className="w-full bg-gray-100 h-16 flex justify-center items-center px-2">
         <img className="h-6" src={logo} alt="" />
-        <h1 className="text-xl text-green-500">Admin-Shophub</h1>
+        <h1 className="text-xl text-blue-400">Admin-Shophub</h1>
       </div>
       <div className="h-80 flex flex-col justify-center items-center">
         <img
@@ -19,7 +19,7 @@ const SideBar = () => {
           alt=""
         />
         <h1 className="text-xl text-gray-600 mb-2">Humed Essie</h1>
-        <div className="bg-green-500 py-2 px-3 text-center text-white rounded-sm w-full flex justify-center items-center">
+        <div className="bg-blue-400 py-2 px-3 text-center text-white rounded-sm w-full flex justify-center items-center">
           <CreditCardIcon className="h-5 text-gray-500 mr-1" />
           $2054
         </div>
@@ -29,7 +29,7 @@ const SideBar = () => {
           to="/"
           onClick={() => setType(0)}
           className={`mb-5 ${
-            type == 0 ? "bg-green-400 text-white" : "bg-none text-gray-600"
+            type == 0 ? "bg-blue-400 text-white" : "bg-none text-gray-600"
           }  w-full text-center py-1 px-2 rounded`}
         >
           Dashbaord
@@ -38,7 +38,7 @@ const SideBar = () => {
           to="/transaction"
           onClick={() => setType(1)}
           className={`mb-5 ${
-            type == 1 ? "bg-green-400 text-white" : "bg-none text-gray-600"
+            type == 1 ? "bg-blue-400 text-white" : "bg-none text-gray-600"
           }  w-full text-center py-1 px-2 rounded`}
         >
           Transaction
@@ -47,7 +47,7 @@ const SideBar = () => {
           to="/category"
           onClick={() => setType(2)}
           className={`mb-5 ${
-            type == 2 ? "bg-green-400 text-white" : "bg-none text-gray-600"
+            type == 2 ? "bg-blue-400 text-white" : "bg-none text-gray-600"
           }  w-full text-center py-1 px-2 rounded`}
         >
           Category
@@ -56,7 +56,7 @@ const SideBar = () => {
           to="/products"
           onClick={() => setType(3)}
           className={`mb-5 ${
-            type == 3 ? "bg-green-400 text-white" : "bg-none text-gray-600"
+            type == 3 ? "bg-blue-400 text-white" : "bg-none text-gray-600"
           }  w-full text-center py-1 px-2 rounded`}
         >
           Products

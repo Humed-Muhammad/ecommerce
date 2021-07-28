@@ -1,11 +1,125 @@
 import React, { useEffect, useState } from "react";
 import TopBar from "./TopBar";
+import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
+import { getAllProductPrice } from "../../api/admin";
+import {
+  AccumulationChartComponent,
+  AccumulationSeriesCollectionDirective,
+  AccumulationSeriesDirective,
+  PieSeries,
+  Inject,
+  AccumulationDataLabel,
+  AccumulationLegend,
+  AccumulationTooltip,
+} from "@syncfusion/ej2-react-charts";
+import { motion } from "framer-motion";
+
+const parent = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 1,
+      delayChildren: 0.3,
+    },
+  },
+};
+const child = {
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+    },
+  },
+};
 
 const MainDashboard = () => {
+  let [response, setResponse] = useState({ status: "", message: "" });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      let { status, message } = await getAllProductPrice();
+      setResponse({ status, message });
+    };
+    fetchData();
+  }, []);
+  console.log(response);
+
+  const endDate = new Date();
+  const startDate = new Date();
+  startDate.setMonth(endDate.getMonth() - 1);
   return (
     <div className="h-full border-r border-gray-300 flex-1 flex flex-col justify-between items-center ">
       <TopBar name={"Dashboard"} />
-      Main
+      <div className="flex-1 w-full justify-base items-center">
+        <div className="w-full h-24 flex justify-between items-center">
+          <h1 className="text-xl text-gray-500 ml-5">Dashboard</h1>
+          <div className="mr-5">
+            <DateRangePickerComponent
+              startDate={startDate}
+              endDate={endDate}
+              placeholder="Select a range"
+              id="daterangepicker"
+            />
+          </div>
+        </div>
+        <React.Fragment>
+          <motion.div
+            variants={parent}
+            initial="hidden"
+            animate="visible"
+            className="w-full flex justify-around items-center"
+          >
+            {response.message &&
+              response.message.map((item) => (
+                <motion.div
+                  variants={child}
+                  className="bg-white m-2 shadow-lg h-24 flex-1 flex flex-col justify-center items-center rounded"
+                >
+                  <h1 className="text-lg text-yellow-500">
+                    <span className="text-lg text-gray-700">$</span>{" "}
+                    {item.price}
+                  </h1>
+                  <h1 className="text-sm text-gray-500">
+                    {item.major_category}
+                  </h1>
+                </motion.div>
+              ))}
+          </motion.div>
+        </React.Fragment>
+        <div className="m-5">
+          <AccumulationChartComponent
+            id="charts"
+            title="Product Sells"
+            tooltip={{ enable: true }}
+          >
+            <Inject
+              services={[
+                PieSeries,
+                AccumulationDataLabel,
+                AccumulationLegend,
+                AccumulationTooltip,
+              ]}
+            />
+            <AccumulationSeriesCollectionDirective>
+              <AccumulationSeriesDirective
+                type="Pie"
+                dataSource={response.message}
+                xName="major_category"
+                innerRadius="50%"
+                yName="price"
+                dataLabel={{
+                  visible: true,
+                  name: "major_category",
+                  position: "Outside",
+                }}
+              ></AccumulationSeriesDirective>
+            </AccumulationSeriesCollectionDirective>
+          </AccumulationChartComponent>
+        </div>
+      </div>
     </div>
   );
 };
