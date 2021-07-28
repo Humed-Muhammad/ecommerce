@@ -28,18 +28,18 @@ export default function AlertDialogSlide({
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle id="alert-dialog-slide-title">
-          You are not logged In
-        </DialogTitle>
+        <DialogTitle id="alert-dialog-slide-title">Checking out</DialogTitle>
         <DialogContent>
           {quantityPass.map((item) => (
-            <div className="flex justify-around items-center">
+            <div className="flex flex-col justify-around items-center divide divide-y-gray-600">
               <h1 className="text-gray-600">
-                Item "{item.title}" Out of stock (sold out), please remove it
-                from cart and try again{" "}
+                <span className="text-red-500">{item.title}</span>
               </h1>
             </div>
           ))}
+          <h1 className="text-gray-700">
+            The above Items are out of stock Please remove them and try again
+          </h1>
           <DialogContentText id="alert-dialog-slide-description"></DialogContentText>
         </DialogContent>
         <DialogActions>

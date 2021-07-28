@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TopBar from "./TopBar";
 import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
-import { getAllProductPrice } from "../../api/admin";
+import { getAllProductPrice, getOrderNums } from "../../api/admin";
 import {
   AccumulationChartComponent,
   AccumulationSeriesCollectionDirective,
@@ -36,15 +36,31 @@ const child = {
 };
 
 const MainDashboard = () => {
-  let [response, setResponse] = useState({ status: "", message: "" });
+  let [response, setResponse] = useState([]);
+  let [orderNums, setOrderNums] = useState([]);
+
+  let majorCategory = [];
 
   useEffect(() => {
     const fetchData = async () => {
-      let { status, message } = await getAllProductPrice();
-      setResponse({ status, message });
+      let { message } = await getAllProductPrice();
+      setResponse(message);
+      getCategoryId(message);
     };
     fetchData();
   }, []);
+
+  async function getCategoryId(useData) {
+    if (useData) {
+      useData.map((item) => {
+        majorCategory.push(item.category_id);
+      });
+
+      let { message } = await getOrderNums(majorCategory);
+      setOrderNums(message);
+    }
+  }
+  getCategoryId();
   console.log(response);
 
   const endDate = new Date();
@@ -70,19 +86,34 @@ const MainDashboard = () => {
             variants={parent}
             initial="hidden"
             animate="visible"
-            className="w-full flex justify-around items-center"
+            className="w-full flex-1 flex flex-wrap justify-around items-center"
           >
-            {response.message &&
-              response.message.map((item) => (
+            {response &&
+              response.map((item, id) => (
                 <motion.div
                   variants={child}
-                  className="bg-white m-2 shadow-lg h-24 flex-1 flex flex-col justify-center items-center rounded"
+                  key={id}
+                  className="bg-white m-2 shadow-lg h-24 flex-1 flex flex-col justify-around items-center rounded "
                 >
-                  <h1 className="text-lg text-yellow-500">
-                    <span className="text-lg text-gray-700">$</span>{" "}
-                    {item.price}
-                  </h1>
-                  <h1 className="text-sm text-gray-500">
+                  <div className="w-full flex-1 flex flex justify-around items-center divide-x divide-yellow-600">
+                    <div className="flex-1 flex justify-center items-center">
+                      Orders (
+                      <span className="text-green-700 mx-1">
+                        {orderNums[id]}
+                      </span>
+                      )
+                    </div>
+                    <div className="flex-1 flex flex-col justify-center items-center">
+                      <h1 className="text-lg text-yellow-500">
+                        <span className="texts-sm">Sells</span>(
+                        <span className="text-lg mx-1 text-gray-700">
+                          ${item.price}
+                        </span>
+                        )
+                      </h1>
+                    </div>
+                  </div>
+                  <h1 className="text-sm text-gray-500 mb-1">
                     {item.major_category}
                   </h1>
                 </motion.div>
@@ -106,7 +137,7 @@ const MainDashboard = () => {
             <AccumulationSeriesCollectionDirective>
               <AccumulationSeriesDirective
                 type="Pie"
-                dataSource={response.message}
+                dataSource={response}
                 xName="major_category"
                 innerRadius="50%"
                 yName="price"

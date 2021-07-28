@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { motion } from "framer-motion";
 import {
   getUserOrder,
   addOrder,
@@ -40,6 +41,15 @@ const Order = () => {
       />
       <div className="w-full h-full flex flex-col justify-center items-center">
         <h1>Your Orders</h1>
+        {status && (
+          <motion.div
+            initial={{ opacity: 0, x: "-50vw" }}
+            animate={{ opacity: 1, x: 0 }}
+            className="h-72 bg-white shadow-lg w-3/5 rounded-sm text-center flex justify-center items-center"
+          >
+            <h1 className="text-green-600">Your Order has been submitted</h1>
+          </motion.div>
+        )}
         <div className="bg-white  z-10 w-full flex flex-wrap justify-center items-center">
           {allCartItems.map((item) => (
             <Card item={item} />
@@ -55,23 +65,23 @@ const Order = () => {
             allCartItems.map((item) => {
               arrayId.push(item.productId);
             });
-            let { message } = await checkProductQuantity(arrayId);
+            let { status, message } = await checkProductQuantity(arrayId);
             console.log(message);
 
-            message.map(async (item) => {
-              if (item.quantity == 0) {
-                setOpenCheck(true);
-                setQuantityPass([...quantityPass, await item]);
-              } else {
-                let { status, message } = await addOrder(allCartItems);
-                let data = await deleteAllCart(localStorage.getItem("userId"));
-                dispatch(decrement(0));
-                setStatus(status);
-                console.log(message);
-                dispatch(getAllCartItems([]));
-                console.log(data);
-              }
-            });
+            if (message) {
+              setOpenCheck(true);
+              setQuantityPass(message);
+            } else {
+              let { message, status } = await addOrder(allCartItems);
+              console.log(message);
+              let cartDelete = await deleteAllCart(
+                localStorage.getItem("userId")
+              );
+              dispatch(decrement(0));
+              setStatus(status);
+              console.log(cartDelete);
+              dispatch(getAllCartItems([]));
+            }
           }}
         >
           Pay Order
