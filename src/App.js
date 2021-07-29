@@ -1,20 +1,13 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import Navbar from "./Components/Navbar.jsx";
-import Add from "./Components/AddProduct.jsx";
 import Home from "./Components/Home.jsx";
 import Cart from "./Components/Cart.jsx";
 import Products from "./Components/Products.jsx";
 import Register from "./Components/users/Register.jsx";
 import Login from "./Components/users/Login.jsx";
-import AddCategories from "./Components/AddCategories.jsx";
-import AddMajorCategory from "./Components/admin/AddMajorCategory.jsx";
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  Link,
-} from "react-router-dom";
+
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import UserProfile from "./Components/users/UserProfile.jsx";
 import Order from "./Components/users/Order";
 

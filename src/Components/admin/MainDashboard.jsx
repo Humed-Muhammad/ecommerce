@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TopBar from "./TopBar";
 import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
-import { getAllProductPrice, getOrderNums } from "../../api/admin";
+import { getApi, postApi } from "../../api/admin";
 import {
   AccumulationChartComponent,
   AccumulationSeriesCollectionDirective,
@@ -43,7 +43,7 @@ const MainDashboard = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      let { message } = await getAllProductPrice();
+      let { message } = await getApi("get-product-price");
       setResponse(message);
       getCategoryId(message);
     };
@@ -56,7 +56,7 @@ const MainDashboard = () => {
         majorCategory.push(item.category_id);
       });
 
-      let { message } = await getOrderNums(majorCategory);
+      let { message } = await postApi("get-order-by-type", majorCategory);
       setOrderNums(message);
     }
   }

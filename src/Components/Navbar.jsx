@@ -85,10 +85,9 @@ const Navbar = () => {
             </Link>
             <button
               onClick={() => {
-                localStorage.removeItem("logged_in");
+                localStorage.setItem("logged_in", false);
                 localStorage.removeItem("userEmail");
                 localStorage.removeItem("userId");
-                window.location.reload();
               }}
               className="py-2 px-2 bg-red-500 text-white rounded-sm mr-2"
             >

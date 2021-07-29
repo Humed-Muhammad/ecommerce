@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
-import { major_categories } from "../../api";
+import { getApi } from "../../api/admin";
 
 const Catagory = ({ setSubCategoryType, categoryId }) => {
   let [response, setResponse] = useState({ status: "", message: "" });
   useEffect(() => {
     const fetchData = async () => {
-      let { status, message } = await major_categories();
+      let { status, message } = await getApi("get-all-category");
 
       setResponse({ status, message });
     };

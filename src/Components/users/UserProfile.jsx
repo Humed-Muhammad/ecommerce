@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import jwtDecode from "jwt-decode";
 import gif from "./gif/blackforest.gif";
 import { UserCircleIcon } from "@heroicons/react/outline";
-import { passUser, changeProfile, postApi } from "../../api";
+import { postApi } from "../../api";
 import { getLoggedInUser } from "../../redux/slice/users";
 
 const UserProfile = () => {

@@ -1,11 +1,13 @@
 import axios from "axios";
 
-// urls
-const totalPrice_url =
-  "http://localhost/ecommers/server/index.php/api/get-product-price";
+const rootUrl = "http://localhost/ecommers/server/index.php/api/";
 
-const getOrdersNumber_url =
-  "http://localhost/ecommers/server/index.php/api/get-order-by-type";
+// urls
+// const totalPrice_url =
+//   "http://localhost/ecommers/server/index.php/api/get-product-price";
+
+// const getOrdersNumber_url =
+//   "http://localhost/ecommers/server/index.php/api/get-order-by-type";
 
 // headers for axios
 const options = {
@@ -15,20 +17,24 @@ const options = {
   },
 };
 
-export const getAllProductPrice = () => {
+export const getApi = (url) => {
   return axios
-    .get(totalPrice_url, options)
+    .get(rootUrl + url, options)
     .then(({ data }) => data)
     .catch((error) => console.log(error));
 };
 
-export const getOrderNums = (orderData) => {
+export const postApi = (url, data) => {
   let formData = new FormData();
 
-  formData.append("data", JSON.stringify(orderData));
+  if (typeof data == "string") {
+    formData.append("data", data);
+  } else {
+    formData.append("data", JSON.stringify(data));
+  }
 
   return axios
-    .post(getOrdersNumber_url, formData, options)
+    .post(rootUrl + url, formData, options)
     .then(({ data }) => data)
     .catch((error) => console.log(error));
 };

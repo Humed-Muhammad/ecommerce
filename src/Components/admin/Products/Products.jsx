@@ -20,7 +20,7 @@ import {
   PageEventArgs,
 } from "@syncfusion/ej2-react-grids";
 
-import { getAllProducts, deleteProducts } from "../../../api";
+import { getApi, postApi } from "../../../api/admin";
 import TopBar from "../TopBar.jsx";
 import AddDialog from "./AddDialog.jsx";
 
@@ -32,7 +32,7 @@ const Products = () => {
 
   useEffect(() => {
     let fetchData = async () => {
-      let data = await getAllProducts();
+      let data = await getApi("get-all-products");
       setDataSrc(data);
       console.log(data);
     };
@@ -107,7 +107,7 @@ const Products = () => {
               allowResizing={true}
               actionBegin={async (args: PageEventArgs) => {
                 if (args.requestType == "delete") {
-                  deleteProducts(args.data[0].id);
+                  postApi("delete-product", args.data[0].id);
                 }
               }}
               beginEdit={async (args: pageEventArgs) => {

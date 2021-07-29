@@ -6,7 +6,7 @@ import { addProduct } from "../../../redux/slice/product";
 import { useSelector, useDispatch } from "react-redux";
 import Dropdown from "../CategoryBoard/Dropdown.tsx";
 import Subdropdown from "../CategoryBoard/Subdropdown.tsx";
-import { add_products } from "../../../api";
+import { postApi } from "../../../api/admin";
 
 const AddDialog = ({ setOpen, open }) => {
   let [title, setTitle] = useState("");
@@ -19,7 +19,6 @@ const AddDialog = ({ setOpen, open }) => {
   let [description, setDescription] = useState("");
   let [shortDescription, setShortDescription] = useState("");
   let [category, setCategory] = useState("");
-  let [categoryId, setCategoryId] = useState("");
 
   const { products } = useSelector((state) => state.products);
   const dispatch = useDispatch();
@@ -27,7 +26,7 @@ const AddDialog = ({ setOpen, open }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let { status } = await add_products(products);
+    let { status } = await postApi("add-product", products[0]);
     if (status) {
       window.location.reload();
     }

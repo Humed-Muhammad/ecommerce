@@ -5,7 +5,7 @@ import { addProduct } from "../../../redux/slice/product";
 import { useSelector, useDispatch } from "react-redux";
 import Dropdown from "../CategoryBoard/Dropdown.tsx";
 import Subdropdown from "../CategoryBoard/Subdropdown.tsx";
-import { edit_product } from "../../../api";
+import { postApi } from "../../../api/admin";
 
 const EditDialog = ({ setOpen, open, setEditing, editData }) => {
   let [title, setTitle] = useState(editData.title);
@@ -28,7 +28,7 @@ const EditDialog = ({ setOpen, open, setEditing, editData }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let { status } = await edit_product(products[0]);
+    let { status } = await postApi("edit-product", products[0]);
     if (status) {
       window.location.reload();
     }

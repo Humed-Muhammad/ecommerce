@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { major_categories } from "../../../api";
+import { getApi } from "../../../api/admin";
 import "@syncfusion/ej2-layouts/styles/material.css";
 import { motion } from "framer-motion";
 import TopBar from "../TopBar";
@@ -23,9 +23,10 @@ const CategoryBoard = () => {
   let [response, setResponse] = useState({ status: "", message: "" });
   let [open, setOpen] = useState(false);
   let [id, setId] = useState("");
+  let [category, setCategory] = useState();
   useEffect(() => {
     let fetchData = async () => {
-      let { status, message } = await major_categories();
+      let { status, message } = await getApi("get-all-category");
       setResponse({ status, message });
     };
     fetchData();
@@ -47,7 +48,7 @@ const CategoryBoard = () => {
         <h1 className="text-lg text-gray-400">Category List</h1>
         <CategoryDailog open={open} setOpen={setOpen} />
         <div className="flex justify-center items-center">
-          <Dropdown />
+          <Dropdown setCategory={setCategory} />
           <button
             onClick={() => setOpen(true)}
             className="bg-gray-700 text-white py-1 px-3 rounded-sm w-44 text-sm"

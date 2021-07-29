@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { addMajor } from "../../api";
+import { postApi } from "../../api/admin";
 
 const AddMajorCategory = () => {
   let [preview, setPreview] = useState("");
@@ -9,7 +9,7 @@ const AddMajorCategory = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let data = await addMajor(majorData);
+    let data = await postApi("add_major", majorData);
     console.log(data);
   };
 

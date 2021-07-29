@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { DropDownListComponent } from "@syncfusion/ej2-react-dropdowns";
-import { major_categories } from "../../../api";
+import { getApi } from "../../../api/admin";
 
 const Dropdown = (props:any) => {
   let [data, setData] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      let { status, message } = await major_categories();
+      let { status, message } = await getApi("get-all-category");
       let array:any = [];
 
       console.log(message);
