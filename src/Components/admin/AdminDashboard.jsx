@@ -3,6 +3,7 @@ import MainDashboard from "./MainDashboard.jsx";
 import CategoryBaord from "./CategoryBoard/CategoryBoard.jsx";
 import Products from "./Products/Products.jsx";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import Transaction from "./Transaction.jsx";
 
 const AdminDashboard = () => {
   return (
@@ -12,10 +13,13 @@ const AdminDashboard = () => {
         <Route exact path="/">
           <MainDashboard />
         </Route>
-        <Route exact path="/category">
+        <Route path="/transaction">
+          <Transaction />
+        </Route>
+        <Route path="/category">
           <CategoryBaord />
         </Route>
-        <Route exact path="/products">
+        <Route path="/products">
           <Products />
         </Route>
       </Router>
