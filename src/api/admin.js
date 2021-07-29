@@ -2,13 +2,6 @@ import axios from "axios";
 
 const rootUrl = "http://localhost/ecommers/server/index.php/api/";
 
-// urls
-// const totalPrice_url =
-//   "http://localhost/ecommers/server/index.php/api/get-product-price";
-
-// const getOrdersNumber_url =
-//   "http://localhost/ecommers/server/index.php/api/get-order-by-type";
-
 // headers for axios
 const options = {
   headers: {
