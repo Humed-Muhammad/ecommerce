@@ -95,7 +95,7 @@ const Cart = () => {
                   }}
                   className="ml-2 text-sm py-1 px-2 bg-red-500 text-white rounded flex-1"
                 >
-                  Empty Cart
+                  Delete all
                 </button>
               </th>
               <th className="text-xl text-gray-600 text-center flex flex-1 justify-center items-center">

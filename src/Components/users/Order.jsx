@@ -5,6 +5,7 @@ import { postApi } from "../../api";
 import Card from "./OrderCard.jsx";
 import { getAllCartItems, decrement } from "../../redux/slice/Cart";
 import ProductQuantityDialog from "./ProductQuantityDialog.jsx";
+import { Link } from "react-router-dom";
 
 const Order = () => {
   let { allCartItems, cartCount } = useSelector((state) => state.cartBucket);
@@ -37,7 +38,9 @@ const Order = () => {
         )}
         <div className="bg-white  z-10 w-full flex flex-wrap justify-center items-center">
           {allCartItems.map((item) => (
-            <Card item={item} />
+            <Link to="/cart">
+              <Card item={item} />
+            </Link>
           ))}
         </div>
       </div>
