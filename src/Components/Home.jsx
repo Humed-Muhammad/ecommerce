@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import jwtDecode from "jwt-decode";
-import { home, passUser } from "../api";
+import { getApi, postApi } from "../api";
 import { getAllMajorCategory, getAllSubCategory } from "../redux/slice/product";
 import { useDispatch } from "react-redux";
 import "./home.css";
@@ -13,7 +13,7 @@ const Home = ({ setPath }) => {
 
   useEffect(() => {
     let fetchData = async () => {
-      let { status, message } = await home();
+      let { status, message } = await getApi("home");
       console.log(message);
 
       setResponse({ status, message });
@@ -29,7 +29,7 @@ const Home = ({ setPath }) => {
         let {
           status,
           message: { token },
-        } = await passUser(userEmail);
+        } = await postApi("pass_user", userEmail);
         let {
           data: { id, email, name },
         } = jwtDecode(token);

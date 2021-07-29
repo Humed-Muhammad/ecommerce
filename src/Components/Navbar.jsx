@@ -4,7 +4,7 @@ import jwtDecode from "jwt-decode";
 import { Link } from "react-router-dom";
 import { SearchIcon } from "@heroicons/react/outline";
 import { Avatar } from "@material-ui/core";
-import { passUser } from "../api";
+import { postApi } from "../api";
 import Badge from "@material-ui/core/Badge";
 import { withStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
@@ -39,7 +39,7 @@ const Navbar = () => {
       let userEmail = localStorage.getItem("userEmail");
 
       if (loggedInStatus) {
-        let { message } = await passUser(userEmail);
+        let { message } = await postApi("pass_user", userEmail);
         let {
           data: { id, email, name, image, cartNum },
         } = jwtDecode(message.token);

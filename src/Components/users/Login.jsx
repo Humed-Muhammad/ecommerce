@@ -9,7 +9,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let { status, message } = await loginUser(userData);
+    let { status, message } = await loginUser("login", userData);
     setResponse({ status, message });
     if (status) {
       localStorage.setItem("logged_in", status);

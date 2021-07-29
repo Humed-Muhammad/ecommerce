@@ -8,7 +8,7 @@ import {
   increment,
 } from "../redux/slice/Cart";
 import { addOrders } from "../redux/slice/product";
-import { getCart, deleteCart } from "../api";
+import { postApi } from "../api";
 import "@syncfusion/ej2-layouts/styles/material.css";
 import { TrashIcon } from "@heroicons/react/solid";
 import Button from "@material-ui/core/Button";
@@ -40,7 +40,7 @@ const Cart = () => {
   useEffect(() => {
     let userId = localStorage.getItem("userId");
     let fetchData = async () => {
-      let { status, message } = await getCart(userId);
+      let { status, message } = await postApi("get-cart", userId);
       dispatch(addOrders(allCartItems));
       dispatch(getAllCartItems(message));
       dispatch(increment(message.length));
@@ -80,7 +80,15 @@ const Cart = () => {
                 Quantity
               </th>
               <th className="text-xl text-gray-600 text-center flex flex-1 justify-center items-center">
-                {" "}
+                <button
+                  onClick={async () => {
+                    postApi("delete-all-cart", localStorage.getItem("userId"));
+                    window.location.reload();
+                  }}
+                  className="text-sm py-1 px-2 bg-red-500 text-white rounded"
+                >
+                  Empty Cart
+                </button>
               </th>
             </tr>
             {allCartItems.map((item, id) => (
@@ -137,7 +145,7 @@ const Cart = () => {
                   </Button>
                   <Button
                     onClick={async () => {
-                      let data = await deleteCart(cartItem.id);
+                      let data = await postApi("delete-cart", cartItem.id);
                       dispatch(removeCartItems(cartItem));
                       dispatch(decrement(-1));
                       console.log(data);

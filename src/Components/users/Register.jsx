@@ -11,7 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserRegisterData } from "../../redux/slice/users";
-import { addUser } from "../../api";
+import { registerUser } from "../../api";
 import CountrySelector from "./CountrySelector.jsx";
 import DatePicker from "./DatePicker.jsx";
 
@@ -55,7 +55,7 @@ export default function SignUp() {
   console.log(users);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let { status, message } = await addUser(users);
+    let { status, message } = await registerUser("signup", users);
     setResponse({ status, message });
   };
   console.log(response);

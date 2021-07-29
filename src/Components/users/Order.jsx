@@ -1,18 +1,9 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { motion } from "framer-motion";
-import {
-  getUserOrder,
-  addOrder,
-  deleteAllCart,
-  checkProductQuantity,
-} from "../../api";
+import { postApi } from "../../api";
 import Card from "./OrderCard.jsx";
-import {
-  getAllCartItems,
-  removeCartItems,
-  decrement,
-} from "../../redux/slice/Cart";
+import { getAllCartItems, decrement } from "../../redux/slice/Cart";
 import ProductQuantityDialog from "./ProductQuantityDialog.jsx";
 
 const Order = () => {
@@ -23,12 +14,6 @@ const Order = () => {
   let [quantityPass, setQuantityPass] = useState([]);
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
-    let fetchData = async () => {
-      let data = await getUserOrder(userId);
-      console.log(data);
-    };
-    fetchData();
     console.log(allCartItems);
   }, [cartCount, openCheck, quantityPass]);
 
@@ -65,21 +50,21 @@ const Order = () => {
             allCartItems.map((item) => {
               arrayId.push(item.productId);
             });
-            let { status, message } = await checkProductQuantity(arrayId);
-            console.log(message);
+            let { status, message } = await postApi(
+              "check-product-quantity",
+              arrayId
+            );
 
             if (message) {
               setOpenCheck(true);
               setQuantityPass(message);
             } else {
-              let { message, status } = await addOrder(allCartItems);
+              let { message, status } = await postApi("order", allCartItems);
               console.log(message);
-              let cartDelete = await deleteAllCart(
-                localStorage.getItem("userId")
-              );
+              await postApi("delete-all-cart", localStorage.getItem("userId"));
               dispatch(decrement(0));
               setStatus(status);
-              console.log(cartDelete);
+
               dispatch(getAllCartItems([]));
             }
           }}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { categoryProducts } from "../api";
+import { postApi } from "../api";
 import { getCategoryProduct } from "../redux/slice/product";
 import { useSelector, useDispatch } from "react-redux";
 import Card from "./Card.jsx";
@@ -14,7 +14,7 @@ const Products = ({ path }) => {
 
   useEffect(() => {
     let fetchData = async () => {
-      let { status, message } = await categoryProducts(path);
+      let { status, message } = await postApi("category", path);
 
       setResponse({ status, message });
       if (status) {

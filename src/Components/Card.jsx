@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import { useSelector, useDispatch } from "react-redux";
 import { addCartItems, increment } from "../redux/slice/Cart";
 import Popup from "./Popup.jsx";
-import { addCart } from "../api";
+import { postApi } from "../api";
 
 const useStyles = makeStyles({
   root: {
@@ -54,7 +54,7 @@ export default function MediaCard({ item }) {
   const handleAddingToCart = async (e) => {
     e.preventDefault();
     if (loggedInStatus) {
-      let { status, message } = await addCart(await cartItems);
+      let { status, message } = await postApi("add-cart", await cartItems[0]);
       dispatch(increment(message));
     }
   };
@@ -108,14 +108,15 @@ export default function MediaCard({ item }) {
                       dispatch(
                         addCartItems({
                           title: item.title,
-                          categoryId: item.category_id,
-                          subcategoryId: item.subcategory_type,
+                          category_id: item.category_id,
+                          sub_category_type: item.subcategory_type,
                           image: item.image,
                           color: item.color,
                           website: item.website,
                           price: item.price,
-                          id: item.id,
-                          shortDesc: item.short_desc,
+                          productId: item.id,
+                          userId: localStorage.getItem("userId"),
+                          short_desc: item.short_desc,
                           quantity: 1,
                         })
                       );

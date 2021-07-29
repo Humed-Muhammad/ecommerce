@@ -1,25 +1,34 @@
 import { PlusIcon, MinusIcon } from "@heroicons/react/solid";
-import { cartQuantity, cartPrice } from "../api";
+import { cartQuantity, cartPrice, postApi } from "../api";
 
 const CartQuantityHandler = ({ item, setAmount }) => {
+  // quantity handlers
   const handleAdd = async (id, value, increasedPrice, productId) => {
-    let { status, message, priceResult } = await cartQuantity(
+    let { status, message, priceResult } = await postApi("quantity-cart", {
       id,
-      value,
-      productId
-    );
+      amount: value,
+      productId,
+    });
 
-    await cartPrice(id, increasedPrice, priceResult);
+    await postApi("price-cart", {
+      id,
+      price: increasedPrice,
+      priceResult: priceResult,
+    });
     setAmount(Math.random());
   };
 
   const handleMinus = async (id, value, increasedPrice, productId) => {
-    let { status, message, priceResult } = await cartQuantity(
+    let { status, message, priceResult } = await postApi("quantity-cart", {
       id,
-      value,
-      productId
-    );
-    await cartPrice(id, increasedPrice, -priceResult);
+      amount: value,
+      productId,
+    });
+    await postApi("price-cart", {
+      id,
+      price: increasedPrice,
+      priceResult: -priceResult,
+    });
 
     setAmount(Math.random());
   };

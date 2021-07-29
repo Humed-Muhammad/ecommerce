@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import jwtDecode from "jwt-decode";
 import gif from "./gif/blackforest.gif";
 import { UserCircleIcon } from "@heroicons/react/outline";
-import { passUser, changeProfile } from "../../api";
+import { passUser, changeProfile, postApi } from "../../api";
 import { getLoggedInUser } from "../../redux/slice/users";
 
 const UserProfile = () => {
@@ -28,7 +28,7 @@ const UserProfile = () => {
       let userEmail = localStorage.getItem("userEmail");
 
       if (loggedInStatus) {
-        let { message } = await passUser(userEmail);
+        let { message } = await postApi("pass_user", userEmail);
         let {
           data: { id, email, name, image, cartNum },
         } = jwtDecode(message.token);
@@ -52,7 +52,10 @@ const UserProfile = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let data = await changeProfile(preview, loggedInUser[0].id);
+    let data = await postApi("change-profile", {
+      image: preview,
+      id: loggedInUser[0].id,
+    });
     console.log(data);
     setOpen(false);
   };
