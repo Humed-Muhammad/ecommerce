@@ -131,7 +131,7 @@ const Cart = () => {
                   </div>
 
                   <div className="text-center flex flex-1 mr-5">
-                    {item.sub_category_type.toLowerCase()}
+                    {item.subcategory_type.toLowerCase()}
                   </div>
 
                   <div className="text-center flex flex-1 price">

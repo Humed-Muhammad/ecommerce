@@ -20,28 +20,59 @@ import {
   PageEventArgs,
 } from "@syncfusion/ej2-react-grids";
 
-import { getApi, postApi } from "../../../api/admin";
+import { postApi } from "../../../api/admin";
 import TopBar from "../TopBar.jsx";
 import AddDialog from "./AddDialog.jsx";
 
-const Products = () => {
+const Products = ({ dataSrc, value, orders }) => {
   let [open, setOpen] = useState(false);
   let [editing, setEditing] = useState(false);
-  let [dataSrc, setDataSrc] = useState([]);
   let [editData, setEditData] = useState({});
-
-  useEffect(() => {
-    let fetchData = async () => {
-      let data = await getApi("get-all-products");
-      setDataSrc(data);
-      console.log(data);
-    };
-    fetchData();
-  }, []);
 
   const filterOptions: FilterSettingsModel = {
     type: "Excel",
   };
+
+  let commandApproved = (value) => {
+    if (value) {
+      return {
+        type: "None",
+        buttonOption: {
+          cssClass: "e-flat",
+          content: "Approve",
+        },
+      };
+    } else {
+      return {
+        type: "None",
+        buttonOption: {
+          cssClass: "e-flat",
+          content: "",
+        },
+      };
+    }
+  };
+
+  let commandRegect = (value) => {
+    if (value) {
+      return {
+        type: "None",
+        buttonOption: {
+          cssClass: "e-flat",
+          content: "Reject",
+        },
+      };
+    } else {
+      return {
+        type: "None",
+        buttonOption: {
+          cssClass: "e-flat",
+          content: "",
+        },
+      };
+    }
+  };
+  console.log(value);
 
   let commands: CommandModel = [
     {
@@ -60,6 +91,8 @@ const Products = () => {
       type: "Cancel",
       buttonOption: { cssClass: "e-flat", iconCss: "e-cancel-icon e-icons" },
     },
+    commandApproved(value),
+    commandRegect(value),
   ];
 
   const toolBarOptions: ToolbarItems[] = ["Search", "Delete", "Cancel"];
@@ -72,7 +105,7 @@ const Products = () => {
 
   return (
     <div className="w-full h-full flex flex-col justify-between items-center">
-      <TopBar name="Products" />
+      <TopBar name={orders} />
       {editing ? (
         <EditPage
           setOpen={setOpen}
@@ -82,15 +115,17 @@ const Products = () => {
         />
       ) : (
         <div className="flex flex-col flex-1 justify-base items-base h-full mt-20 mx-3">
-          <div className="z-10 w-full flex justify-around items-center mb-5 md:justify-between">
-            <h1 className="text-lg text-gray-500">Products</h1>
-            <button
-              onClick={() => setOpen(true)}
-              className="bg-gray-700 py-1 px-2 text-sm text-white rounded"
-            >
-              Add New Product
-            </button>
-          </div>
+          {!value && (
+            <div className="z-10 w-full flex justify-around items-center mb-5 md:justify-between">
+              <h1 className="text-lg text-gray-500">Products</h1>
+              <button
+                onClick={() => setOpen(true)}
+                className="bg-gray-700 py-1 px-2 text-sm text-white rounded"
+              >
+                Add New Product
+              </button>
+            </div>
+          )}
           <AddDialog setOpen={setOpen} open={open} />
           <div className="">
             <GridComponent
@@ -106,6 +141,7 @@ const Products = () => {
               editSettings={editOptions}
               allowResizing={true}
               actionBegin={async (args: PageEventArgs) => {
+                console.log(args);
                 if (args.requestType == "delete") {
                   postApi("delete-product", args.data[0].id);
                 }
@@ -120,57 +156,63 @@ const Products = () => {
               }}
             >
               <ColumnsDirective>
-                <ColumnDirective type="checkbox" width="50" />
+                <ColumnDirective type="checkbox" width="20" />
                 <ColumnDirective
                   field="id"
                   headerText="Id"
                   isPrimaryKey={true}
                   width="100"
+                  visible={false}
                 />
                 <ColumnDirective
                   field="category_id"
                   headerText="Category Id"
-                  width="100"
+                  width="70"
+                  visible={false}
                 />
                 <ColumnDirective
                   field="category_type"
                   headerText="Category Type"
                   width="100"
                 />
-                <ColumnDirective field="title" headerText="Name" width="100" />
-                <ColumnDirective field="color" headerText="Color" width="100" />
+                <ColumnDirective field="title" headerText="Name" width="60" />
+                <ColumnDirective field="color" headerText="Color" width="60" />
                 <ColumnDirective
                   field="quantity"
                   headerText="Quantity"
-                  width="100"
+                  width="50"
                   format="C2"
                 />
                 <ColumnDirective
                   field="created_at"
                   headerText="Created date"
                   width="100"
+                  visible={false}
                 />
-                <ColumnDirective field="price" headerText="Price" width="100" />
-                <ColumnDirective field="size" headerText="Size" width="100" />
+                <ColumnDirective field="price" headerText="Price" width="50" />
+                <ColumnDirective field="size" headerText="Size" width="50" />
                 <ColumnDirective
-                  field="subcategory_id"
+                  field="subcategory_type"
                   headerText="Subcategory"
                   width="100"
                 />
                 <ColumnDirective
                   field="short_desc"
-                  headerText="Subcategory"
+                  headerText="Short Desc"
                   width="100"
                 />
                 <ColumnDirective
                   field="description"
-                  headerText="Subcategory"
+                  headerText="Description"
                   width="100"
+                  visible={false}
                 />
 
                 <ColumnDirective
                   headerText="Commands"
-                  width="100"
+                  width={value ? "150" : "100"}
+                  autoFit={true}
+                  textAlign="Center"
                   commands={commands}
                 />
               </ColumnsDirective>

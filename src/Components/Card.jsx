@@ -108,8 +108,9 @@ export default function MediaCard({ item }) {
                       dispatch(
                         addCartItems({
                           title: item.title,
+                          category_type: item.category_type,
                           category_id: item.category_id,
-                          sub_category_type: item.subcategory_type,
+                          subcategory_type: item.subcategory_type,
                           image: item.image,
                           color: item.color,
                           website: item.website,
@@ -118,6 +119,7 @@ export default function MediaCard({ item }) {
                           userId: localStorage.getItem("userId"),
                           short_desc: item.short_desc,
                           quantity: 1,
+                          size: item.size,
                         })
                       );
 
