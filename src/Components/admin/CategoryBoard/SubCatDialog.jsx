@@ -22,7 +22,7 @@ const SubDropdown = ({ catId }) => {
         }
       });
 
-      setData(await array);
+      setData(array);
     };
     fetchData();
   }, []);
