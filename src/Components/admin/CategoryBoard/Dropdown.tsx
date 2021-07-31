@@ -4,12 +4,15 @@ import { getApi } from "../../../api/admin";
 
 const Dropdown = (props:any) => {
   let [data, setData] = useState([]);
+  let [major, setMajor] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      let { status, message } = await getApi("get-all-category");
+      let { message } = await getApi("get-all-category");
       let array:any = [];
 
       console.log(message);
+
+      setMajor(message[0])
 
       message[0].map((item:any) => {
         array.push(item.major_category);
@@ -19,11 +22,19 @@ const Dropdown = (props:any) => {
     };
     fetchData();
   }, []);
-  console.log(data);
+
 
   let handleChange = (args: any) => {
     props.setCategory(args.value) as any;
+    
+    major.forEach(item => {
+      if(item?.major_category == args.value) {
+        props.setCatId(item?.id)
+        }
+    });
+
   };
+ 
 
   return (
     // specifies the tag for render the DropDownList component

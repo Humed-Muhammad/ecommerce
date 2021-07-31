@@ -6,7 +6,7 @@ const SubDropdown = ({ catId }) => {
   let [data, setData] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      let { status, message } = await major_categories();
+      let { message } = await major_categories();
       let array = [];
 
       let id = 1;
@@ -26,7 +26,7 @@ const SubDropdown = ({ catId }) => {
     };
     fetchData();
   }, []);
-  console.log(data);
+
   return (
     // specifies the tag for render the DropDownList component
     <DropDownListComponent

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { DialogComponent } from "@syncfusion/ej2-react-popups";
 import { v4 as uuidv4 } from "uuid";
 
@@ -20,6 +20,8 @@ const AddDialog = ({ setOpen, open }) => {
   let [shortDescription, setShortDescription] = useState("");
   let [category, setCategory] = useState("");
 
+  let [catId, setCatId] = useState("");
+
   const { products } = useSelector((state) => state.products);
   const dispatch = useDispatch();
 
@@ -33,6 +35,7 @@ const AddDialog = ({ setOpen, open }) => {
   };
 
   let [subCategoryType, setSubCategoryType] = useState("");
+  console.log(catId);
 
   return (
     <div
@@ -55,8 +58,11 @@ const AddDialog = ({ setOpen, open }) => {
           className="w-full flex flex-col justify-around items-center"
         >
           <div className="w-full flex justify-between items-center mb-5">
-            <Dropdown setCategory={setCategory} />
-            <Subdropdown setSubCategoryType={setSubCategoryType} />
+            <Dropdown setCatId={setCatId} setCategory={setCategory} />
+            <Subdropdown
+              catId={catId}
+              setSubCategoryType={setSubCategoryType}
+            />
           </div>
           <div className="flex flex-col justify-around items-center w-full md:flex-row">
             <div className="w-full flex flex-col justify-center items-center">

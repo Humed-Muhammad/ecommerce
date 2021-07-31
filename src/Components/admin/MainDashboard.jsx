@@ -45,10 +45,9 @@ const MainDashboard = () => {
   let [orderNums, setOrderNums] = useState([]);
   let [endDate, setEndDate] = useState(new Date());
   let [startDate, setStartDate] = useState(start);
+  let [randomNumber, setRandomNumber] = useState(Math.random());
 
   let majorCategory = [];
-  // const endDate = new Date();
-  // const startDate = new Date();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,7 +59,7 @@ const MainDashboard = () => {
       getCategoryId(message);
     };
     fetchData();
-  }, [startDate, endDate]);
+  }, [randomNumber]);
 
   async function getCategoryId(useData) {
     if (useData) {
@@ -78,6 +77,7 @@ const MainDashboard = () => {
   let getDataRange = (props) => {
     setStartDate(props.startDate);
     setEndDate(props.endDate);
+    setRandomNumber(Math.random());
   };
 
   return (

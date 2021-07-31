@@ -6,20 +6,22 @@ const SubDropdown = (props:any) => {
   let [data, setData] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      let { status, message } = await getApi("get-all-category");
+      let { message } = await getApi("get-all-category");
       let array:any = [];
 
-      console.log(message);
 
       message[1].map((item:any) => {
-        array.push(item.sub_name);
+        if(props?.catId === item.majorId){
+          array.push(item.sub_name);
+        }
+        console.log(item.majorId);
       });
 
       setData(await array);
     };
     fetchData();
-  }, []);
-  console.log(data);
+  }, [props?.catId]);
+
 
   let handleChange = (args: any) => {
     props.setSubCategoryType(args.value);

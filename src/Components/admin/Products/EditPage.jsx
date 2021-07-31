@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { DialogComponent } from "@syncfusion/ej2-react-popups";
 
 import { addProduct } from "../../../redux/slice/product";
@@ -22,6 +22,8 @@ const EditDialog = ({ setOpen, open, setEditing, editData }) => {
     editData.subCategoryType
   );
 
+  let [catId, setCatId] = useState("");
+
   const { products } = useSelector((state) => state.products);
   const dispatch = useDispatch();
 
@@ -33,7 +35,6 @@ const EditDialog = ({ setOpen, open, setEditing, editData }) => {
       window.location.reload();
     }
   };
-  console.log(editData);
 
   return (
     <div className="flex flex-1 justify-center items-center" id="dialog-target">
@@ -56,8 +57,13 @@ const EditDialog = ({ setOpen, open, setEditing, editData }) => {
           className="w-full flex flex-col justify-around items-center"
         >
           <div className="w-full flex justify-between items-center mb-5">
-            <Dropdown editData={editData} setCategory={setCategory} />
+            <Dropdown
+              setCatId={setCatId}
+              editData={editData}
+              setCategory={setCategory}
+            />
             <Subdropdown
+              catId={catId}
               editData={editData}
               setSubCategoryType={setSubCategoryType}
             />
