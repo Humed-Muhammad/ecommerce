@@ -31,47 +31,56 @@ import AddDialog from "./AddDialog.jsx";
 const Products = ({ dataSrc, value, orders }) => {
   let [open, setOpen] = useState(false);
   let [editing, setEditing] = useState(false);
+  let [status, setStatus] = useState(false);
   let [editData, setEditData] = useState({});
-  let [ordersStatus, setOrdersStatus] = useState([]);
+  let [dataSource, setDataSource] = useState([]);
 
-  let array = [];
-
-  dataSrc &&
-    dataSrc.map((item) => {
-      array.push(item.status);
-    });
-
-  console.log(array);
+  useEffect(() => {
+    setDataSource(dataSrc);
+  }, []);
 
   const filterOptions: FilterSettingsModel = {
     type: "Excel",
   };
 
+  let grid: Grid | null;
   let commandClick = async (args: CommandClickEventArgs) => {
-    const target = args.target;
+    let target = args.target;
     if (target.classList.contains("e-approve")) {
-      await postApi("change-order-status", {
+      let { message } = await postApi("change-order-status", {
         orderId: args.rowData.orderId,
         status: 2,
       });
-      target.innerHTML = "Approved";
+      setDataSource(message);
+      setStatus(true);
     } else if (target.classList.contains("e-reject")) {
-      await postApi("change-order-status", {
+      let { message } = await postApi("change-order-status", {
         orderId: args.rowData.orderId,
         status: 0,
       });
-      target.innerHTML = "Rejected";
+      setDataSource(message);
+      setStatus(true);
+    }
+  };
+
+  let deselecting = (args: CommandClickEventArgs) => {
+    let target = args.target;
+    if (target) {
+      if (
+        target.classList.contains("e-approve") ||
+        target.classList.contains("e-reject")
+      ) {
+        target = null;
+        args.cancel = true;
+      }
     }
   };
 
   let customizeCell = (args: QueryCellInfoEventArgs) => {
-    if (args.column.field === "status" && args.data && args.cell) {
+    if (args.column.headerText == "Commands" && args.data && args.cell) {
       if (getValue("status", args.data) == 0) {
         args.cell.innerHTML = "Rejected";
         args.cell.classList.add("bg-red-400");
-      } else if (getValue("status", args.data) == 1) {
-        args.cell.innerHTML = "Pending";
-        args.cell.classList.add("bg-blue-400");
       } else if (getValue("status", args.data) == 2) {
         args.cell.innerHTML = "Approved";
         args.cell.classList.add("bg-green-400");
@@ -105,7 +114,7 @@ const Products = ({ dataSrc, value, orders }) => {
       buttonOption: {
         content: "Approve",
         iconCss: "",
-        cssClass: "e-flat e-approve",
+        cssClass: "e-flat e-approve e-color-green",
       },
     },
     {
@@ -152,9 +161,11 @@ const Products = ({ dataSrc, value, orders }) => {
           <AddDialog setOpen={setOpen} open={open} />
           <div className="">
             <GridComponent
-              dataSource={dataSrc}
+              dataSource={value && status ? dataSource : dataSrc}
               allowPaging={true}
               pageSettings={{ pageSize: 6 }}
+              rowSelecting={deselecting}
+              rowDeselecting={deselecting}
               allowSorting={true}
               allowFiltering={true}
               allowGrouping={true}
@@ -239,7 +250,7 @@ const Products = ({ dataSrc, value, orders }) => {
                   width="50"
                   textAlign="center"
                   allowSelection={false}
-                  visible={value}
+                  visible={false}
                 />
 
                 <ColumnDirective
@@ -271,41 +282,3 @@ const Products = ({ dataSrc, value, orders }) => {
 };
 
 export default Products;
-
-// import { closest } from '@syncfusion/ej2-base';
-// import { ColumnDirective, ColumnsDirective, CommandColumn, Grid, GridComponent } from '@syncfusion/ej2-react-grids';
-// import { Column, CommandModel, CommandClickEventArgs, Edit, EditSettingsModel, Inject, IRow } from '@syncfusion/ej2-react-grids';
-// import * as React from 'react';
-// import { data } from './datasource';
-
-// export default class App extends React.Component<{}, {}> {
-//   public editOptions: EditSettingsModel = { allowEditing: true, allowDeleting: true };
-//   public commands: CommandModel[] = [
-// {
-//   buttonOption: {
-//     content: 'Details', cssClass: 'e-flat'
-//   }
-// }
-//   ];
-//   public grid: Grid | null;
-
-//   public commandClick(args: CommandClickEventArgs): void  {
-// if (this.grid) {
-//   alert(JSON.stringify(args.rowData));
-// }
-//   }
-
-//   public render() {
-//   this.commandClick = this.commandClick.bind(this);
-// return <GridComponent dataSource={data} editSettings={this.editOptions} commandClick={this.commandClick} height={265} ref={g => this.grid = g}>
-//   <ColumnsDirective>
-//       <ColumnDirective field='OrderID' headerText='Order ID' width='100' textAlign="Right" isPrimaryKey={true}/>
-//       <ColumnDirective field='CustomerID' headerText='Customer ID' width='120'/>
-//       <ColumnDirective field='Freight' headerText='Freight' width='120' format="C2" editType= 'numericedit' textAlign="Right"/>
-//       <ColumnDirective field='ShipCountry' headerText='Ship Country' editType= 'dropdownedit' width='150'/>
-//       <ColumnDirective headerText='Commands' width='120' commands= {this.commands}/>
-//   </ColumnsDirective>
-//   <Inject services={[Edit, CommandColumn]} />
-// </GridComponent>
-//   }
-// };
