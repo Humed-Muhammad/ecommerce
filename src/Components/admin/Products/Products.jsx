@@ -85,7 +85,7 @@ const Products = ({ dataSrc, value, orders }: any) => {
       } else if (getValue("status", args.data) == 2) {
         args.cell.innerHTML = "Approved";
         args.cell.classList.add("bg-green-400");
-      } else {
+      } else if (value) {
         args.cell.classList.add("bg-blue-400");
       }
     }
