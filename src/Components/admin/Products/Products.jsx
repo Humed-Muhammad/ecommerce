@@ -28,7 +28,7 @@ import { postApi } from "../../../api/admin";
 import TopBar from "../TopBar.jsx";
 import AddDialog from "./AddDialog.jsx";
 
-const Products = ({ dataSrc, value, orders }) => {
+const Products = ({ dataSrc, value, orders }: any) => {
   let [open, setOpen] = useState(false);
   let [editing, setEditing] = useState(false);
   let [status, setStatus] = useState(false);
@@ -44,18 +44,19 @@ const Products = ({ dataSrc, value, orders }) => {
   };
 
   let grid: Grid | null;
-  let commandClick = async (args: CommandClickEventArgs) => {
-    let target = args.target;
-    if (target.classList.contains("e-approve")) {
+  let commandClick = async (args?: CommandClickEventArgs) => {
+    let target = args?.target;
+    let dataLoad = args?.rowData;
+    if (target?.classList.contains("e-approve")) {
       let { message } = await postApi("change-order-status", {
-        orderId: args.rowData.orderId,
+        orderId: dataLoad?.orderId,
         status: 2,
       });
       setDataSource(message);
       setStatus(true);
-    } else if (target.classList.contains("e-reject")) {
+    } else if (target?.classList.contains("e-reject")) {
       let { message } = await postApi("change-order-status", {
-        orderId: args.rowData.orderId,
+        orderId: dataLoad?.orderId,
         status: 0,
       });
       setDataSource(message);
@@ -84,6 +85,8 @@ const Products = ({ dataSrc, value, orders }) => {
       } else if (getValue("status", args.data) == 2) {
         args.cell.innerHTML = "Approved";
         args.cell.classList.add("bg-green-400");
+      } else {
+        args.cell.classList.add("bg-blue-400");
       }
     }
   };

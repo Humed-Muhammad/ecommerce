@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import TopBar from "./TopBar";
-import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
+import {
+  DateRangePickerComponent,
+  Data,
+} from "@syncfusion/ej2-react-calendars";
 import { getApi, postApi } from "../../api/admin";
 import {
   AccumulationChartComponent,
@@ -36,19 +39,28 @@ const child = {
 };
 
 const MainDashboard = () => {
+  let start = new Date();
+  start.setMonth(new Date().getMonth() - 1);
   let [response, setResponse] = useState([]);
   let [orderNums, setOrderNums] = useState([]);
+  let [endDate, setEndDate] = useState(new Date());
+  let [startDate, setStartDate] = useState(start);
 
   let majorCategory = [];
+  // const endDate = new Date();
+  // const startDate = new Date();
 
   useEffect(() => {
     const fetchData = async () => {
-      let { message } = await getApi("get-product-price");
+      let { message } = await postApi("get-product-price", {
+        startDate: startDate,
+        endDate: endDate,
+      });
       setResponse(message);
       getCategoryId(message);
     };
     fetchData();
-  }, []);
+  }, [startDate, endDate]);
 
   async function getCategoryId(useData) {
     if (useData) {
@@ -60,12 +72,14 @@ const MainDashboard = () => {
       setOrderNums(message);
     }
   }
-  getCategoryId();
+
   console.log(response);
 
-  const endDate = new Date();
-  const startDate = new Date();
-  startDate.setMonth(endDate.getMonth() - 1);
+  let getDataRange = (props) => {
+    setStartDate(props.startDate);
+    setEndDate(props.endDate);
+  };
+
   return (
     <div className="h-full border-r border-gray-300 flex-1 flex flex-col justify-between items-center ">
       <TopBar name={"Dashboard"} />
@@ -78,6 +92,7 @@ const MainDashboard = () => {
               endDate={endDate}
               placeholder="Select a range"
               id="daterangepicker"
+              change={getDataRange}
             />
           </div>
         </div>
