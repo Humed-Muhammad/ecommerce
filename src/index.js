@@ -9,7 +9,7 @@ import Admin from "./Components/admin/AdminDashboard.jsx";
 
 ReactDOM.render(
   <Provider store={store}>
-    <Admin />
+    <App />
   </Provider>,
   document.getElementById("root")
 );

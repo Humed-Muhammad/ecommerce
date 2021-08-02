@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { postApi } from "../../api/admin";
 
 const AddMajorCategory = () => {
   let [preview, setPreview] = useState("");
   let [name, setName] = useState("");
-  let [opened, setOpened] = useState("");
+  // let [opened, setOpened] = useState("");
   const majorData = { image: preview, name };
 
   const handleSubmit = async (e) => {

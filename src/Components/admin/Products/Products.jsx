@@ -62,6 +62,7 @@ const Products = ({ dataSrc, value, orders }: any) => {
       setDataSource(message);
       setStatus(true);
     }
+    value = true;
   };
 
   let deselecting = (args: CommandClickEventArgs) => {
@@ -74,6 +75,7 @@ const Products = ({ dataSrc, value, orders }: any) => {
         target = null;
         args.cancel = true;
       }
+      value = true;
     }
   };
 
@@ -89,6 +91,7 @@ const Products = ({ dataSrc, value, orders }: any) => {
         args.cell.classList.add("bg-blue-400");
       }
     }
+    value = true;
   };
 
   console.log(value);

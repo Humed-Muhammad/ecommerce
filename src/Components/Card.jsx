@@ -96,11 +96,13 @@ export default function MediaCard({ item }) {
             </button>
           ) : (
             <div className="">
-              {loggedInStatus && added ? (
+              {loggedInStatus && added && (
                 <button className="text-green-500 flex justify-center items-center">
                   Added <CheckCircleIcon className="text-green h-7" />{" "}
                 </button>
-              ) : (
+              )}
+
+              {loggedInStatus && (
                 <button
                   type="submit"
                   onClick={() => {
