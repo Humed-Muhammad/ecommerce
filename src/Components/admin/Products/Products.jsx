@@ -210,6 +210,12 @@ const Products = ({ dataSrc, value, orders }: any) => {
                   visible={false}
                 />
                 <ColumnDirective
+                  field="first_name"
+                  headerText="Candidate Name"
+                  width="100"
+                  visible={value}
+                />
+                <ColumnDirective
                   field="category_type"
                   headerText="Category Type"
                   width="100"
