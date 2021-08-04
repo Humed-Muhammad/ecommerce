@@ -93,6 +93,7 @@ const Cart = () => {
                   onClick={async () => {
                     postApi("delete-all-cart", localStorage.getItem("userId"));
                     dispatch(deleteAllCartItems());
+                    dispatch(decrement(0));
                   }}
                   className="ml-2 text-sm py-1 px-2 bg-red-500 text-white rounded flex-1"
                 >
