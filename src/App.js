@@ -26,15 +26,15 @@ function App() {
       <Router className="flex flex-col justify-center items-center ">
         <Navbar />
         <Route path="/order">
-          {loggedInStatus ? null : <Redirect path="/" />}
+          {/* {loggedInStatus ? null : <Redirect path="/" />} */}
           <Order />
         </Route>
         <Route path="/profile">
-          {loggedInStatus ? null : <Redirect path="/" />}
+          {/* {loggedInStatus ? null : <Redirect path="/" />} */}
           <UserProfile />
         </Route>
         <Route path="/cart">
-          {loggedInStatus ? null : <Redirect path="/" />}
+          {/* {loggedInStatus ? null : <Redirect path="/" />} */}
           <Cart />
         </Route>
         <Route path={`/products/${path}`}>
@@ -47,7 +47,6 @@ function App() {
           <Register />
         </Route>
         <Route path="/login">
-          {loggedInStatus && <Redirect path="/" />}
           <Login />
         </Route>
       </Router>

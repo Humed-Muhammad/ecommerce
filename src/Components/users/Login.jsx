@@ -9,6 +9,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     let { status, message } = await loginUser("login", userData);
     setResponse({ status, message });
     if (status) {
@@ -22,14 +23,21 @@ const Login = () => {
   return (
     <div>
       <div className="w-screen h-screen bg-gray-100 flex flex-col items-center justify-center ">
+        {response.status && (
+          <div className="bg-white w-4/5 h-24 flex justify-center items-center mb-10">
+            <h1 className="text-gray mr-3">Succussfully Loged In</h1>
+            <Link className="text-blue-500" to="/">
+              {" "}
+              Go To Home
+            </Link>
+          </div>
+        )}
         <form
           onSubmit={(e) => handleSubmit(e)}
           className="w-96 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
         >
           <p className="text-red-500">
-            {response.status
-              ? ""
-              : typeof response.message != "object" && response.message}
+            {typeof response.message != "object" && response.message}
           </p>
           <div className="mb-4">
             <label
@@ -49,7 +57,7 @@ const Login = () => {
               }
             />
             <p className="text-red-500">
-              {response.status ? "" : response.message["email"]}
+              {response.message && response.message["email"]}
             </p>
           </div>
           <div className="mb-6">
@@ -71,7 +79,7 @@ const Login = () => {
               }
             />
             <p className="text-red-500">
-              {response.status ? "" : response.message["password"]}
+              {response.message && response.message["password"]}
             </p>
             <input
               className="hidden js-password-toggle"
