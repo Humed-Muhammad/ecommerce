@@ -47,7 +47,7 @@ function App() {
           <Register />
         </Route>
         <Route path="/login">
-          {loggedInStatus ? <Login /> : <Redirect path="/" />}
+          {loggedInStatus ? <Redirect path="/" /> : <Login />}
         </Route>
       </Router>
     </div>
