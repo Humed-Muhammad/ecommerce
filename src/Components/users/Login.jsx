@@ -56,7 +56,7 @@ const Login = () => {
               }
             />
             <p className="text-red-500">
-              {response.message && response.message["email"]}
+              {!response.status && response.message["email"]}
             </p>
           </div>
           <div className="mb-6">
@@ -78,7 +78,7 @@ const Login = () => {
               }
             />
             <p className="text-red-500">
-              {response.message && response.message["password"]}
+              {!response.status && response.message["password"]}
             </p>
             <input
               className="hidden js-password-toggle"
