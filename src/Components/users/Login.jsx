@@ -26,7 +26,9 @@ const Login = () => {
           <div className="bg-white w-4/5 h-24 flex justify-center items-center mb-10">
             <h1 className="text-gray mr-3">Succussfully Loged In</h1>
             <Link
-              onClick={() => window.location.replace("/")}
+              onClick={() =>
+                window.location.replace("https://shophub-hum.netlify.app/")
+              }
               className="text-blue-500"
               to="/"
             >
