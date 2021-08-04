@@ -43,9 +43,9 @@ const Home = ({ setPath }) => {
 
   return (
     <div className=" h-screen w-screen flex flex-col jistify-center items-center bg-gray-100 mt-40 md:mt-20">
-      <div className="home h-2/5 w-11/12 mt-10 rounded-md flex flex-col jistify-center items-center bg-gray-100">
+      <div className="home h-2/5 w-11/12 md:w-6/12 mt-10 rounded-md flex flex-col jistify-center items-center bg-gray-100 xl:w-2/5">
         <div className=" h-96 flex flex-col jistify-around items-center mt-10">
-          <h1 className="text-white text-xl font-bold mb-5 sm:text-2xl md:text-4xl">
+          <h1 className="text-gray-700 text-xl font-bold mb-5 sm:text-2xl md:text-4xl">
             Welcome to Shophub
           </h1>
           <p className="text-md text-gray-900 mb-5 ">Know with 50% off!</p>
