@@ -15,7 +15,6 @@ const Login = () => {
     if (status) {
       localStorage.setItem("logged_in", status);
       localStorage.setItem("userEmail", message.email);
-      window.location.reload();
     }
   };
   console.log(response);
