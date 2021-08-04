@@ -30,8 +30,7 @@ function App() {
           <Order />
         </Route>
         <Route path="/profile">
-          {loggedInStatus ? null : <Redirect path="/" />}
-          <UserProfile />
+          {loggedInStatus ? <UserProfile /> : <Redirect path="/" />}
         </Route>
         <Route path="/cart">
           {loggedInStatus ? null : <Redirect path="/" />}
