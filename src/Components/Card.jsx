@@ -102,7 +102,7 @@ export default function MediaCard({ item }) {
                 </button>
               )}
 
-              {loggedInStatus && (
+              {(loggedInStatus || !added) && (
                 <button
                   type="submit"
                   onClick={() => {
