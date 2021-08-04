@@ -49,7 +49,7 @@ const Navbar = () => {
       }
     };
     fetchData();
-  }, [cartCount, loggedInStatus]);
+  }, [cartCount, loggedInStatus, tokenData]);
   console.log(tokenData);
 
   return (

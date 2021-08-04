@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   getAllCartItems,
   removeCartItems,
+  deleteAllCartItems,
   decrement,
   increment,
 } from "../redux/slice/Cart";
@@ -91,7 +92,7 @@ const Cart = () => {
                 <button
                   onClick={async () => {
                     postApi("delete-all-cart", localStorage.getItem("userId"));
-                    window.location.reload();
+                    dispatch(deleteAllCartItems());
                   }}
                   className="ml-2 text-sm py-1 px-2 bg-red-500 text-white rounded flex-1"
                 >
