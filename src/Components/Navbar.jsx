@@ -49,7 +49,7 @@ const Navbar = () => {
       }
     };
     fetchData();
-  }, [cartCount, loggedInStatus]);
+  }, [cartCount, loggedInStatus, loggedInUser]);
 
   return (
     <nav className="w-screen z-10 h-40 bg-white flex flex-wrap justify-around items-center shadow-lg fixed top-0 md:h-24">
