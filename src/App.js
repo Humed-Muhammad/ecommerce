@@ -17,10 +17,6 @@ function App() {
   let loggedInStatus = localStorage.getItem("logged_in");
   let cartCount = localStorage.getItem("cartCount");
 
-  useEffect(() => {
-    console.log(cartCount);
-  }, [cartCount]);
-
   return (
     <div className="bg-gray-white flex flex-col justify-center items-center ">
       <Router className="flex flex-col justify-center items-center ">
