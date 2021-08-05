@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import jwtDecode from "jwt-decode";
 import { Link } from "react-router-dom";
 import { loginUser } from "../../api";
 
@@ -13,8 +14,11 @@ const Login = () => {
     let { status, message } = await loginUser("login", userData);
     setResponse({ status, message });
     if (status) {
+      let {
+        data: { id, email, name },
+      } = jwtDecode(message.token);
       localStorage.setItem("logged_in", status);
-      localStorage.setItem("userEmail", message.email);
+      localStorage.setItem("userEmail", email);
     }
   };
 
