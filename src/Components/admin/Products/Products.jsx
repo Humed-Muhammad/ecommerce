@@ -24,7 +24,7 @@ import {
   QueryCellInfoEventArgs,
 } from "@syncfusion/ej2-react-grids";
 import { getValue } from "@syncfusion/ej2-base";
-import { postApi } from "../../../api/admin";
+import { postApi, getApi } from "../../../api/admin";
 import TopBar from "../TopBar.jsx";
 import AddDialog from "./AddDialog.jsx";
 
@@ -43,22 +43,23 @@ const Products = ({ dataSrc, value, orders }: any) => {
     type: "Excel",
   };
 
-  let grid: Grid | null;
   let commandClick = async (args?: CommandClickEventArgs) => {
     let target = args?.target;
     let dataLoad = args?.rowData;
     if (target?.classList.contains("e-approve")) {
-      let { message } = await postApi("change-order-status", {
+      await postApi("change-order-status", {
         orderId: dataLoad?.orderId,
         status: 2,
       });
+      let { message } = await getApi("get-all-order");
       setDataSource(message);
       setStatus(true);
     } else if (target?.classList.contains("e-reject")) {
-      let { message } = await postApi("change-order-status", {
+      await postApi("change-order-status", {
         orderId: dataLoad?.orderId,
         status: 0,
       });
+      let { message } = await getApi("get-all-order");
       setDataSource(message);
       setStatus(true);
     }

@@ -1,8 +1,9 @@
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
-// const rootUrl = "http://localhost/ecommers/server/index.php/api/";
-const rootUrl = "https://ecommers-server.herokuapp.com/index.php/api/";
+const rootUrl = "http://localhost/ecommers/server/index.php/api/";
+
+// const rootUrl = "https://ecommers-server.herokuapp.com/index.php/api/";
 
 // renewed API
 
