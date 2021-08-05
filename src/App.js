@@ -19,7 +19,7 @@ function App() {
 
   useEffect(() => {
     console.log(cartCount);
-  }, [cartCount]);
+  }, [cartCount, loggedInStatus]);
 
   return (
     <div className="bg-gray-white flex flex-col justify-center items-center ">
