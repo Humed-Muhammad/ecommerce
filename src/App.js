@@ -12,7 +12,7 @@ import UserProfile from "./Components/users/UserProfile.jsx";
 import Order from "./Components/users/Order";
 
 function App() {
-  let [path, setPath] = useState("" || localStorage.getItem("path"));
+  let [path, setPath] = useState("");
 
   let loggedInStatus = localStorage.getItem("logged_in");
   let cartCount = localStorage.getItem("cartCount");

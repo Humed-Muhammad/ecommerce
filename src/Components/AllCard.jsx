@@ -17,7 +17,7 @@ const AllCard = ({ setPath }) => {
           <Link
             onClick={() => {
               setPath(item.major_category);
-              localStorage.setItem("path", item.major_category);
+              // localStorage.setItem("path", item.major_category);
             }}
             key={item.id}
             to={`products/${item.major_category}`}
