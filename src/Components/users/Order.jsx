@@ -14,9 +14,7 @@ const Order = () => {
   let [openCheck, setOpenCheck] = useState(false);
   let [quantityPass, setQuantityPass] = useState([]);
 
-  useEffect(() => {
-    console.log(allCartItems);
-  }, [cartCount, openCheck, quantityPass]);
+  useEffect(() => {}, [cartCount, openCheck, quantityPass]);
 
   return (
     <div className="bg-white mt-40  w-full flex  justify-base items-center">
@@ -62,8 +60,8 @@ const Order = () => {
               setOpenCheck(true);
               setQuantityPass(message);
             } else {
-              let { message, status } = await postApi("order", allCartItems);
-              console.log(message);
+              let { status } = await postApi("order", allCartItems);
+
               await postApi("delete-all-cart", localStorage.getItem("userId"));
               dispatch(decrement(0));
               setStatus(status);

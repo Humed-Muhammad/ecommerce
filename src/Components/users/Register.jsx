@@ -52,13 +52,11 @@ export default function SignUp() {
   const classes = useStyles();
   let dispatch = useDispatch();
   let { users } = useSelector((state) => state.users);
-  console.log(users);
   const handleSubmit = async (e) => {
     e.preventDefault();
     let { status, message } = await registerUser("signup", users);
     setResponse({ status, message });
   };
-  console.log(response);
 
   return (
     <Container className={classes.paper} component="main">

@@ -18,9 +18,7 @@ export default function CustomizedBadges() {
   let { cartItems } = useSelector((state) => state.cartBucket);
   let cartCount = localStorage.getItem("cartCount");
 
-  useEffect(() => {
-    console.log(cartItems);
-  }, [cartItems]);
+  useEffect(() => {}, [cartItems]);
 
   return (
     <IconButton aria-label="cart">

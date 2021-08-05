@@ -37,7 +37,6 @@ const Cart = () => {
 
   let { allCartItems, cartCount } = useSelector((state) => state.cartBucket);
   let dispatch = useDispatch();
-  console.log(allCartItems);
 
   let inputRef = useRef();
 
@@ -50,9 +49,7 @@ const Cart = () => {
       dispatch(increment(message.length));
     };
     fetchData();
-    console.log(deleteId);
   }, [cartCount, amount, open, deleteId, checked]);
-  console.log(allCartItems);
 
   let i = 0;
 
@@ -157,7 +154,6 @@ const Cart = () => {
                         setDeleteId(
                           deleteId.filter((value) => value != item.id)
                         );
-                        console.log(item.id);
                       }
                     }}
                     className="text-blue-600 flex flex-1"
@@ -192,7 +188,6 @@ const Cart = () => {
                       let data = await postApi("delete-cart", [cartItem.id]);
                       dispatch(removeCartItems(cartItem));
                       dispatch(decrement(-1));
-                      console.log(data);
 
                       setOpen(false);
                     }}

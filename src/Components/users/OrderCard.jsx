@@ -28,9 +28,7 @@ export default function MediaCard({ item }) {
   let [amount, setAmount] = useState("");
   let { allCartItems, cartCount } = useSelector((state) => state.cartBucket);
 
-  useEffect(() => {
-    console.log(allCartItems);
-  }, [amount, cartCount]);
+  useEffect(() => {}, [amount, cartCount]);
   const classes = useStyles();
   return (
     <Card className="w-60 mr-5 mt-24 md:mt-3">

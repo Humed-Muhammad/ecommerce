@@ -46,7 +46,6 @@ const CartQuantityHandler = ({ item, setAmount }) => {
               Number(item.price),
               item.productId
             );
-            console.log(item.productId);
           }}
           className="h-6 bg-red-400 rounded text-white p-1 text-lg cursor-pointer mr-2"
         />
@@ -61,7 +60,6 @@ const CartQuantityHandler = ({ item, setAmount }) => {
             Number(item.price),
             item.productId
           );
-          console.log(item.productId);
         }}
         className="h-6 bg-gray-700 rounded text-white p-1 text-lg cursor-pointer ml-2"
       />

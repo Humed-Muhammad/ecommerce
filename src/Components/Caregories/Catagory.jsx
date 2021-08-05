@@ -15,7 +15,6 @@ const Catagory = ({ category, setCategory, setCategoryId }) => {
     };
     fetchData();
   }, []);
-  console.log(response);
 
   return (
     <Autocomplete

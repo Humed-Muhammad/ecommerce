@@ -13,8 +13,6 @@ const Catagory = ({ setSubCategoryType, categoryId }) => {
     };
     fetchData();
   }, []);
-  console.log(response);
-  console.log(categoryId);
 
   let array = [];
   response.message &&

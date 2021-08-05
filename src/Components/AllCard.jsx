@@ -9,9 +9,6 @@ const AllCard = ({ setPath }) => {
   );
   let [major, setMajor] = useState([]);
 
-  console.log(allMajorCategory);
-  console.log(allSubCategory);
-
   return (
     <div className="w-full flex justify-center items-center flex-col mt-10 bg-gray-100">
       <h1 className=" text-2xl text-gray-600 mb-5">All Categories</h1>

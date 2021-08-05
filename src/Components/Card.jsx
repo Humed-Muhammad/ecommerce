@@ -43,9 +43,7 @@ export default function MediaCard({ item }) {
 
   let { cartItems } = useSelector((state) => state.cartBucket);
 
-  useEffect(() => {
-    console.log(cartItems);
-  }, [cartItems]);
+  useEffect(() => {}, [cartItems]);
 
   const dispatch = useDispatch();
 

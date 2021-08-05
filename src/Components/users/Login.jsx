@@ -17,7 +17,6 @@ const Login = () => {
       localStorage.setItem("userEmail", message.email);
     }
   };
-  console.log(response);
 
   return (
     <div>

@@ -17,7 +17,6 @@ export default function AlertDialogSlide({
   openCheck,
   quantityPass,
 }) {
-  console.log(quantityPass);
   return (
     <div>
       <Dialog

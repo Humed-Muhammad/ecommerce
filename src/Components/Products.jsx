@@ -22,10 +22,7 @@ const Products = ({ path }) => {
       }
     };
     fetchData();
-    console.log(cartItems);
   }, [cartItems]);
-
-  console.log(categoryProduct);
 
   return (
     <div className="bg-white mt-20  w-full flex flex-wrap justify-center items-center">

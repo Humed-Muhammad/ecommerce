@@ -14,7 +14,6 @@ const Home = ({ setPath }) => {
   useEffect(() => {
     let fetchData = async () => {
       let { status, message } = await getApi("home");
-      console.log(message);
 
       setResponse({ status, message });
 

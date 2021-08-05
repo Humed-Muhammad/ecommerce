@@ -19,7 +19,6 @@ const UserProfile = () => {
 
   let { loggedInUser } = useSelector((state) => state.users);
   const dispatch = useDispatch();
-  console.log(loggedInUser);
 
   let loggedInStatus = localStorage.getItem("logged_in");
 
@@ -39,7 +38,6 @@ const UserProfile = () => {
     };
     fetchData();
   }, [preview, open]);
-  console.log(tokenData);
 
   const handleChange = (e) => {
     let file = e.target.files[0];
@@ -56,7 +54,7 @@ const UserProfile = () => {
       image: preview,
       id: loggedInUser[0].id,
     });
-    console.log(data);
+
     setOpen(false);
   };
 
