@@ -4,6 +4,7 @@ import { getApi, postApi } from "../api";
 import { getAllMajorCategory, getAllSubCategory } from "../redux/slice/product";
 import { useDispatch } from "react-redux";
 import "./home.css";
+import { CircularProgress } from "@material-ui/core";
 
 import AllCard from "./AllCard.jsx";
 
@@ -53,7 +54,13 @@ const Home = ({ setPath }) => {
           </button>
         </div>
       </div>
-      <AllCard setPath={setPath} />
+      {response.status ? (
+        <AllCard setPath={setPath} />
+      ) : (
+        <div className="h-96 flex justify-center items-center">
+          <CircularProgress />
+        </div>
+      )}
     </div>
   );
 };
