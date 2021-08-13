@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import HomeCard from "./HomeCard.jsx";
 import { Link } from "react-router-dom";
@@ -17,7 +17,7 @@ const AllCard = ({ setPath }) => {
           <Link
             onClick={() => {
               setPath(item.major_category);
-              // localStorage.setItem("path", item.major_category);
+              localStorage.setItem("path", item.major_category);
             }}
             key={item.id}
             to={`products/${item.major_category}`}

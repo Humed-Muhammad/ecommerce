@@ -18,7 +18,7 @@ const Register = lazy(() => import("./Components/users/Register.jsx"));
 const Login = lazy(() => import("./Components/users/Login.jsx"));
 
 function App() {
-  let [path, setPath] = useState("");
+  let [path, setPath] = useState("" || localStorage.getItem("path"));
 
   let loggedInStatus = localStorage.getItem("logged_in");
   let cartCount = localStorage.getItem("cartCount");

@@ -25,17 +25,17 @@ const Home = ({ setPath }) => {
       let loggedInStatus = localStorage.getItem("logged_in");
       let userEmail = localStorage.getItem("userEmail");
 
-      if (loggedInStatus) {
-        let {
-          status,
-          message: { token },
-        } = await postApi("pass_user", userEmail);
-        let {
-          data: { id, email, name },
-        } = jwtDecode(token);
+      //   if (loggedInStatus) {
+      //     let {
+      //       status,
+      //       message: { token },
+      //     } = await postApi("pass_user", userEmail);
+      //     let {
+      //       data: { id, email, name },
+      //     } = jwtDecode(token);
 
-        localStorage.setItem("userId", id);
-      }
+      //     localStorage.setItem("userId", id);
+      //   }
     };
 
     fetchData();
