@@ -19,6 +19,7 @@ const Login = () => {
       } = jwtDecode(message.token);
       localStorage.setItem("logged_in", status);
       localStorage.setItem("userEmail", email);
+      window.location.reload();
     }
   };
 
@@ -29,7 +30,6 @@ const Login = () => {
           <div className="bg-white w-4/5 h-24 flex justify-center items-center mb-10">
             <h1 className="text-gray mr-3">Succussfully Loged In</h1>
             <Link className="text-blue-500" to="/">
-              {" "}
               Go To Home
             </Link>
           </div>
